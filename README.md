@@ -13,7 +13,7 @@
 
 ## High Level Software Plan
 
-> TODO: **@DanielRyu** will fill this out based on discussions from the Software Solutions meeting on 1/11/2020.
+> TODO: **@DanielRyu** will fill this out based on discussions from the Software Solutions meeting on 1/11/2020. I added back in some bogus text mwahaha!
 
 ## Specific Software Plans
 
