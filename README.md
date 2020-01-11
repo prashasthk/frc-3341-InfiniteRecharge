@@ -17,10 +17,10 @@
 
 ## Specific Software Plans
 
-| Subsystem Group Plans                   |
-| --------------------------------------- |
-| [autonomous](autonomous.md)             |
-| [ball_scorer](ball_scorer.md)           |
-| [control_wheel]()                       |
-| [end_game](end_game.md)                 |
-| [integrated_robot](integrated_robot.md) |
+| Subsystem Group Plans                        |
+| -------------------------------------------- |
+| [autonomous](docs/autonomous.md)             |
+| [ball_scorer](docs/ball_scorer.md)           |
+| [control_wheel](docs/control_wheel.md)       |
+| [end_game](docs/end_game.md)                 |
+| [integrated_robot](docs/integrated_robot.md) |
