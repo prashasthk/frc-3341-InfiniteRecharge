@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,26 +7,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
-/**
- * An example command that uses an example subsystem.
- */
-public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
-
+public class RotatePivot extends CommandBase {
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
+   * Creates a new RotatePivot.
    */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  private double output;
+  public RotatePivot() {
+    //this.output = output;
+
+    addRequirements(RobotContainer.m_pivot);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
-    
   }
 
   // Called when the command is initially scheduled.
@@ -37,17 +31,31 @@ public class ExampleCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("hi");
+    if(RobotContainer.screwer.canUsePivot) {
+    RobotContainer.m_pivot.Pivot(Robot.m_robotContainer.getMechJoy().getY());
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.m_pivot.Pivot(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isFwdLimitSwitchClosed()) {
+      RobotContainer.m_pivot.canUseLeadScrew = true;
+      return true;
+    } else if (RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isRevLimitSwitchClosed()) {
+      return true;
+    }
+  
+else {
+  return false;
+}
+
+    
   }
 }
