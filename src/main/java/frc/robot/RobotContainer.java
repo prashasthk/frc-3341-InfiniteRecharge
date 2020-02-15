@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -27,7 +28,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  public DriveTrain drive = new DriveTrain();
+  public static DriveTrain drive;
   public NavX navx = new NavX();
   private Joystick leftJoy;
   private Joystick rightJoy;
@@ -37,9 +38,11 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    leftJoy = new Joystick(2);
-    rightJoy = new Joystick(3);
+    drive = new DriveTrain();
+    leftJoy = new Joystick(0);
+    rightJoy = new Joystick(1);
     // Configure the button bindings
+    drive.setDefaultCommand(new TankDrive());
     configureButtonBindings();
   }
   public Joystick getLeftJoy(){

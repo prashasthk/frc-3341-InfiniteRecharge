@@ -22,12 +22,20 @@ public class DriveTrain extends SubsystemBase {
   private WPI_TalonSRX right = new WPI_TalonSRX(3);
   private WPI_TalonSRX leftFollow = new WPI_TalonSRX(4);
   private WPI_TalonSRX rightFollow = new WPI_TalonSRX(5);
+  private static DriveTrain instance;
   public DriveTrain() {
     
   }
 
-  
+  public static DriveTrain getInstance(){
+    if (instance == null){
+      instance = new DriveTrain();
+    }
+
+    return instance;
+  }
   public void tankDrive(double leftpower, double rightpower){
+    //set left motor inverted
     left.set(ControlMode.PercentOutput, leftpower);
     right.set(ControlMode.PercentOutput, rightpower);
     leftFollow.set(ControlMode.Follower, 2);
@@ -36,6 +44,7 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    tankDrive(Robot.m_robotContainer.getLeftJoy().getY(), Robot.m_robotContainer.getRightJoy().getY());
+    //moved tankDrive to its own command
+    //tankDrive(Robot.m_robotContainer.getLeftJoy().getY(), Robot.m_robotContainer.getRightJoy().getY());
   }
 }
