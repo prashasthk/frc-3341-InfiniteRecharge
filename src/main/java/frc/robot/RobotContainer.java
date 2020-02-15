@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ReverseTankDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -26,13 +28,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   public static DriveTrain drive;
   public NavX navx = new NavX();
   private Joystick leftJoy;
   private Joystick rightJoy;
-
+  public JoystickButton reverseButton;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -41,8 +42,8 @@ public class RobotContainer {
     drive = new DriveTrain();
     leftJoy = new Joystick(0);
     rightJoy = new Joystick(1);
-    // Configure the button bindings
     drive.setDefaultCommand(new TankDrive());
+    // Configure the button bindings
     configureButtonBindings();
   }
   public Joystick getLeftJoy(){
@@ -58,6 +59,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    reverseButton = new JoystickButton(rightJoy, 2);
+    reverseButton.whenPressed(new ReverseTankDrive());
   }
 
 

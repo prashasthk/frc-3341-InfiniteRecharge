@@ -41,6 +41,7 @@ public class DriveTrain extends SubsystemBase {
     leftFollow.set(ControlMode.Follower, 2);
     rightFollow.set(ControlMode.Follower, 3);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
