@@ -17,7 +17,6 @@ import frc.robot.commands.Translating;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LeadScrew;
 import frc.robot.subsystems.Switch;
 import frc.robot.subsystems.Pivot;
@@ -33,9 +32,7 @@ import frc.robot.subsystems.Pivot;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  
-  public DriveTrain drive = new DriveTrain();
-  
+    
   public static Pivot m_pivot;
   public static LeadScrew screwer;
 
@@ -52,6 +49,7 @@ public class RobotContainer {
   private Joystick mechJoy; 
   private JoystickButton leadScrewUp;
   private JoystickButton leadScrewDown;
+
   public Joystick getMechJoy() {
     return mechJoy;
   }
