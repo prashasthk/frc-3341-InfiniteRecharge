@@ -8,12 +8,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
-import frc.robot.commands.RotatePivot;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Joystick;
 
 
 
@@ -24,14 +20,27 @@ public class Pivot extends SubsystemBase {
     private static Pivot pivot;
     private final TalonSRX pivotMotor = new TalonSRX(5);
   // private final TalonSRX motorRight = new TalonSRX(3);
-  public boolean canUseLeadScrew;
+  public boolean lock = false;
+ // jiofjoerf
 
-  public void Pivot(final double JOY) {
+  public void pivot(final double JOY) {
     pivotMotor.set(ControlMode.PercentOutput, JOY);
     
 }
   public Pivot() {
    // RotatePivot r = new RotatePivot();
+  }
+  public void setLock(boolean lock) {
+    this.lock = lock;
+  }
+  public boolean getLock() {
+    return lock;
+  }
+  public boolean atTop() {
+    return pivotMotor.getSensorCollection().isRevLimitSwitchClosed();
+  }
+  public boolean atBottom() {
+    return pivotMotor.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   public Pivot returnPivot() {

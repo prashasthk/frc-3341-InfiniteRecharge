@@ -11,14 +11,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.Screwing;
 
 public class LeadScrew extends SubsystemBase {
   /**
    * Creates a new leadScrew.
    */
   private TalonSRX screw = new TalonSRX(6);
-  public boolean canUsePivot = true;
+  public boolean lock = true;
 
   public LeadScrew() {
     //this.setDefaultCommand(new Screwing());
@@ -26,6 +25,18 @@ public class LeadScrew extends SubsystemBase {
   
   public void spin(double speed){
     screw.set(ControlMode.PercentOutput,speed);
+  }
+  public void setLock(boolean lock) {
+    this.lock = lock;
+  }
+  public boolean getLock() {
+    return lock;
+  }
+  public boolean atTop() {
+    return screw.getSensorCollection().isRevLimitSwitchClosed();
+  }
+  public boolean atBottom() {
+    return screw.getSensorCollection().isFwdLimitSwitchClosed();
   }
 
   @Override

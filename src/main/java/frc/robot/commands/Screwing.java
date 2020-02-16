@@ -8,14 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 public class Screwing extends CommandBase {
   /**
    * Creates a new Screwing.
    */
-  private double speed;
   private double output;
 
   public Screwing(double output) {
@@ -34,8 +32,18 @@ public class Screwing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.m_pivot.canUseLeadScrew) {
-    RobotContainer.screwer.spin(output);
+    if(RobotContainer.screwer.atTop()) {
+      RobotContainer.m_pivot.setLock(true);;
+      
+    } else if (RobotContainer.screwer.atBottom()) {
+      RobotContainer.m_pivot.setLock(false); 
+    }
+    else {
+      RobotContainer.m_pivot.setLock(true);;
+    }
+   // System.out.println(RobotContainer.m_pivot.canUseLeadScrew);
+    if (!(RobotContainer.screwer.getLock())) {
+      RobotContainer.screwer.spin(output);
     }
   }
 
@@ -48,16 +56,9 @@ public class Screwing extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(RobotContainer.screwer.getScrewTalon().getSensorCollection().isFwdLimitSwitchClosed()) {
-      RobotContainer.screwer.canUsePivot = true;
-      return true;
-    } else if (RobotContainer.screwer.getScrewTalon().getSensorCollection().isRevLimitSwitchClosed()) {
-      return true;
-    }
-    else {
       return false;
     }
     
   }
-}
+
 

@@ -15,7 +15,6 @@ public class RotatePivot extends CommandBase {
   /**
    * Creates a new RotatePivot.
    */
-  private double output;
   public RotatePivot() {
     //this.output = output;
 
@@ -31,31 +30,33 @@ public class RotatePivot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.screwer.canUsePivot) {
-    RobotContainer.m_pivot.Pivot(Robot.m_robotContainer.getMechJoy().getY());
+    System.out.print("Forward Limit switch:" + " " + RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isFwdLimitSwitchClosed());
+    System.out.println("Reverse Limit switch:" + " " + RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isRevLimitSwitchClosed());
+    if(RobotContainer.m_pivot.atBottom()) {
+      RobotContainer.screwer.setLock(true);
+    
+    } else if (RobotContainer.m_pivot.atTop()) {
+      RobotContainer.screwer.setLock(false);
+    } else {
+      RobotContainer.screwer.setLock(true);
+    }
+    if(!(RobotContainer.m_pivot.getLock())) {
+    RobotContainer.m_pivot.pivot(Robot.m_robotContainer.getMechJoy().getY());
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.m_pivot.Pivot(0);
+    //RobotContainer.m_pivot.Pivot(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isFwdLimitSwitchClosed()) {
-      RobotContainer.m_pivot.canUseLeadScrew = true;
-      return true;
-    } else if (RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isRevLimitSwitchClosed()) {
-      return true;
-    }
-  
-else {
-  return false;
+    return false;
 }
 
     
-  }
 }
+
