@@ -23,9 +23,8 @@ public class DriveTrain extends SubsystemBase {
   private WPI_TalonSRX leftFollow = new WPI_TalonSRX(4);
   private WPI_TalonSRX rightFollow = new WPI_TalonSRX(5);
   private static DriveTrain instance;
-  public DriveTrain() {
-    
-  }
+  private boolean inverted = false;
+  public DriveTrain() {}
 
   public static DriveTrain getInstance(){
     if (instance == null){
@@ -41,10 +40,17 @@ public class DriveTrain extends SubsystemBase {
     leftFollow.set(ControlMode.Follower, 2);
     rightFollow.set(ControlMode.Follower, 3);
   }
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-    //moved tankDrive to its own command
-    //tankDrive(Robot.m_robotContainer.getLeftJoy().getY(), Robot.m_robotContainer.getRightJoy().getY());
+
+  public void reverseMotors(){
+    inverted = !inverted;
+    left.setInverted(!left.getInverted());
+    right.setInverted(!right.getInverted());
   }
+
+  public boolean isInverted() {
+    return inverted;
+  }
+
+  @Override
+  public void periodic() {}
 }
