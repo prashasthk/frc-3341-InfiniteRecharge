@@ -14,10 +14,12 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RotatePivot;
 import frc.robot.commands.Screwing;
 import frc.robot.commands.Translating;
+import frc.robot.commands.TankDrive;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LeadScrew;
 import frc.robot.subsystems.Switch;
 import frc.robot.subsystems.Pivot;
@@ -34,7 +36,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
-  public DriveTrain drive = new DriveTrain();
+  public static DriveTrain drive;
   
   public static Pivot m_pivot;
   public static LeadScrew screwer;
@@ -44,14 +46,14 @@ public class RobotContainer {
   // public EndGame end = new EndGame();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
- 
-  // private Joystick screwJoy = new Joystick(2);
-
-  // private Joystick switchJoy = new Joystick(3);
+  public NavX navx;
+  private Joystick leftJoy;
+  private Joystick rightJoy;
 
   private Joystick mechJoy; 
   private JoystickButton leadScrewUp;
   private JoystickButton leadScrewDown;
+
   public Joystick getMechJoy() {
     return mechJoy;
   }
@@ -67,12 +69,18 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    navx = new NavX();
     mechJoy = new Joystick(2);
     // Configure the button bindings
     m_pivot = new Pivot();
     screwer = new LeadScrew();
     switching = new Switch();
 
+    drive = new DriveTrain();
+    leftJoy = new Joystick(0);
+    rightJoy = new Joystick(1);
+    // Configure the button bindings
+    drive.setDefaultCommand(new TankDrive());
     configureButtonBindings();
 
   
@@ -80,7 +88,12 @@ public class RobotContainer {
     m_pivot.setDefaultCommand(new RotatePivot());
     
   }
-
+  public Joystick getLeftJoy(){
+    return leftJoy;
+  }
+  public Joystick getRightJoy(){
+    return rightJoy;
+  }
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -88,8 +101,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    leadScrewUp = new JoystickButton(mechJoy,11);
-    leadScrewDown = new JoystickButton(mechJoy, 12);
+    leadScrewUp = new JoystickButton(mechJoy, 3);
+    leadScrewDown = new JoystickButton(mechJoy, 4);
 
     leadScrewUp.whileHeld(new Screwing(0.5));
     leadScrewDown.whileHeld(new Screwing(-0.5));

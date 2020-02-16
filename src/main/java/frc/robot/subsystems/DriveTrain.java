@@ -8,40 +8,44 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 //TankDrive with two traditional joysticks 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+
 public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
-  private final TalonSRX left = new TalonSRX(2);
-  private final TalonSRX right = new TalonSRX(3);
-  private static DriveTrain drive; 
-  private Joystick leftJoy;
-  private Joystick rightJoy;
-  
+  private WPI_TalonSRX left = new WPI_TalonSRX(2);
+  private WPI_TalonSRX right = new WPI_TalonSRX(3);
+  private WPI_TalonSRX leftFollow = new WPI_TalonSRX(4);
+  private WPI_TalonSRX rightFollow = new WPI_TalonSRX(5);
+  private static DriveTrain instance;
   public DriveTrain() {
-    leftJoy = new Joystick(2);
-    rightJoy = new Joystick(3);
-  } 
-  //grabs instance of DriveTrain to be used in commands 
-  public static DriveTrain getDrive() {
-    if (drive == null) {  
-      drive = new DriveTrain();
-    }
-    return drive;
+    
   }
-  public void tankDrive(double l, double r) {
-    left.set(ControlMode.PercentOutput, 0.3 * l);
-    right.set(ControlMode.PercentOutput, 0.3 * r);
+
+  public static DriveTrain getInstance(){
+    if (instance == null){
+      instance = new DriveTrain();
+    }
+
+    return instance;
+  }
+  public void tankDrive(double leftpower, double rightpower){
+    //set left motor inverted
+    left.set(ControlMode.PercentOutput, leftpower);
+    right.set(ControlMode.PercentOutput, rightpower);
+    leftFollow.set(ControlMode.Follower, 2);
+    rightFollow.set(ControlMode.Follower, 3);
   }
   @Override
   public void periodic() {
-    tankDrive(leftJoy.getY(), rightJoy.getY());
     // This method will be called once per scheduler run
+    //moved tankDrive to its own command
+    //tankDrive(Robot.m_robotContainer.getLeftJoy().getY(), Robot.m_robotContainer.getRightJoy().getY());
   }
 }
