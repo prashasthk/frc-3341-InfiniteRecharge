@@ -15,6 +15,10 @@ public class ReverseTankDrive extends CommandBase {
   /**
    * Creates a new ReverseTankDrive.
    */
+
+  //true if the motor isn't inverted
+  double flag = 0;
+
   public ReverseTankDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.drive);
@@ -23,12 +27,15 @@ public class ReverseTankDrive extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.drive.tankDrive((-1)*Robot.m_robotContainer.getLeftJoy().getY(), (-1)*Robot.m_robotContainer.getRightJoy().getY());
+    
+    RobotContainer.drive.reverseMotors();
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +46,6 @@ public class ReverseTankDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
