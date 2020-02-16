@@ -15,7 +15,6 @@ public class Translating extends CommandBase {
   /**
    * Creates a new Translating.
    */
-  private double speed;
 
   public Translating() {
     // Use addRequirements() here to declare subsystem dependencies.

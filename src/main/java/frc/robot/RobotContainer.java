@@ -88,8 +88,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    leadScrewUp = new JoystickButton(mechJoy,11);
-    leadScrewDown = new JoystickButton(mechJoy, 12);
+    leadScrewUp = new JoystickButton(mechJoy, 3);
+    leadScrewDown = new JoystickButton(mechJoy, 4);
 
     leadScrewUp.whileHeld(new Screwing(0.5));
     leadScrewDown.whileHeld(new Screwing(-0.5));
