@@ -18,7 +18,7 @@ public class Pivot extends SubsystemBase {
    * Creates a new Pivot.
    */
     private static Pivot pivot;
-    private final TalonSRX pivotMotor = new TalonSRX(5);
+    private final TalonSRX pivotMotor = new TalonSRX(6);
   // private final TalonSRX motorRight = new TalonSRX(3);
   public boolean lock = false;
  // jiofjoerf

@@ -16,7 +16,7 @@ public class Switch extends SubsystemBase {
   /**
    * Creates a new Switch.
    */
-  private TalonSRX balance = new TalonSRX(4);
+  private TalonSRX balance = new TalonSRX(8);
 
   public Switch() {
    //setDefaultCommand(new Translating());

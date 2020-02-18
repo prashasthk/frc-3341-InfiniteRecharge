@@ -32,17 +32,17 @@ public class RotatePivot extends CommandBase {
   public void execute() {
     System.out.print("Forward Limit switch:" + " " + RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isFwdLimitSwitchClosed());
     System.out.println("Reverse Limit switch:" + " " + RobotContainer.m_pivot.getPivotTalon().getSensorCollection().isRevLimitSwitchClosed());
-    if(RobotContainer.m_pivot.atBottom()) {
-      RobotContainer.screwer.setLock(true);
+    // if(RobotContainer.m_pivot.atBottom()) {
+    //   RobotContainer.screwer.setLock(true);
     
-    } else if (RobotContainer.m_pivot.atTop()) {
-      RobotContainer.screwer.setLock(false);
-    } else {
-      RobotContainer.screwer.setLock(true);
-    }
-    if(!(RobotContainer.m_pivot.getLock())) {
-    RobotContainer.m_pivot.pivot(Robot.m_robotContainer.getMechJoy().getY());
-    }
+    // } else if (RobotContainer.m_pivot.atTop()) {
+    //   RobotContainer.screwer.setLock(false);
+    // } else {
+    //   RobotContainer.screwer.setLock(true);
+    // }
+    // if(!(RobotContainer.m_pivot.getLock())) {
+    RobotContainer.m_pivot.pivot(-Robot.m_robotContainer.getMechJoy().getY());
+   // }
   }
 
   // Called once the command ends or is interrupted.

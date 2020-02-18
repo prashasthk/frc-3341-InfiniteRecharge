@@ -90,7 +90,7 @@ public class RobotContainer {
     leadScrewDown = new JoystickButton(mechJoy, 4);
 
     leadScrewUp.whileHeld(new Screwing(0.5));
-    leadScrewDown.whileHeld(new Screwing(-0.5));
+    leadScrewDown.whileHeld(new Screwing(-1));
 
   }
 

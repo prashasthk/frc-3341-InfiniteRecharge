@@ -16,10 +16,11 @@ public class LeadScrew extends SubsystemBase {
   /**
    * Creates a new leadScrew.
    */
-  private TalonSRX screw = new TalonSRX(6);
+  private TalonSRX screw = new TalonSRX(7);
   public boolean lock = true;
 
   public LeadScrew() {
+    screw.setInverted(true);
     //this.setDefaultCommand(new Screwing());
   }
   
