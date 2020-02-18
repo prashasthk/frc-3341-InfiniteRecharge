@@ -24,7 +24,10 @@ public class DriveTrain extends SubsystemBase {
   private WPI_TalonSRX rightFollow = new WPI_TalonSRX(5);
   private static DriveTrain instance;
   private boolean inverted = false;
-  public DriveTrain() {}
+  public DriveTrain() {
+    right.setInverted(true);
+    rightFollow.setInverted(true);
+  }
 
   public static DriveTrain getInstance(){
     if (instance == null){
